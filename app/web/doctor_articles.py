@@ -81,7 +81,7 @@ def create_article():
 def edit_article(id):
     if current_user.role != "`DOKTER":
         return "Unauthorized", 403
-`
+
     article = Article.query.get_or_404(id)
 
     if article.author_id != current_user.id:

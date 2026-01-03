@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 load_dotenv()
 
 class Config:
@@ -13,13 +14,15 @@ class Config:
     UPLOAD_FOLDER = os.path.join(BASE_DIR, 'app/static/uploads')
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # Batas max file 16MB
     
+    #  # Firebase Admin SDK (download dari Firebase Console -> Service accounts)
+    FIREBASE_SERVICE_ACCOUNT = os.environ.get("FIREBASE_SERVICE_ACCOUNT", "serviceAccountKey.json")
 
     # Cookie secure hanya TRUE di HTTPS production
     SESSION_COOKIE_SECURE = os.environ.get("SESSION_COOKIE_SECURE", "0") == "1"
 
     # === Chatbot / Unsloth ===
     BASE_MODEL_NAME = "unsloth/Llama-3.2-3B-Instruct-bnb-4bit"
-    LORA_PATH = "lora_adapter_3b"   # path folder adapter kamu
+    LORA_PATH = os.path.join(BASE_DIR, "app", "model", "model_3b_anemia")  # path folder adapter kamu
     MAX_NEW_TOKENS = 256
     TEMPERATURE = 0.7
     TOP_P = 0.9
