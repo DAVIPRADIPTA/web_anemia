@@ -17,6 +17,10 @@ class Config:
     # Cookie secure hanya TRUE di HTTPS production
     SESSION_COOKIE_SECURE = os.environ.get("SESSION_COOKIE_SECURE", "0") == "1"
 
+
+     # Firebase Admin SDK (download dari Firebase Console -> Service accounts)
+    FIREBASE_SERVICE_ACCOUNT = os.environ.get("FIREBASE_SERVICE_ACCOUNT", "serviceAccountKey.json")
+
     # === Chatbot / Unsloth ===
     BASE_MODEL_NAME = "unsloth/Llama-3.2-3B-Instruct-bnb-4bit"
     LORA_PATH = "lora_adapter_3b"   # path folder adapter kamu

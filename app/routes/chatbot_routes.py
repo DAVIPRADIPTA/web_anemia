@@ -106,3 +106,32 @@ def history(session_id):
             for m in msgs
         ]
     }), 200
+
+@chatbot_bp.route("/sessions", methods=["GET"])
+def list_sessions():
+    """
+    Query params:
+    ?user_id=123
+    """
+    user_id = request.args.get("user_id", type=int)
+    if not user_id:
+        return jsonify({"error": "user_id wajib (query param)"}), 400
+
+    sessions = (
+        ChatbotSession.query
+        .filter_by(user_id=user_id)
+        .order_by(ChatbotSession.updated_at.desc())
+        .all()
+    )
+
+    return jsonify({
+        "sessions": [
+            {
+                "session_id": s.id,
+                "title": s.title,
+                "created_at": s.created_at.isoformat(),
+                "updated_at": s.updated_at.isoformat()
+            }
+            for s in sessions
+        ]
+    }), 200
